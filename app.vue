@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button @click="chat">OPENAI</button>
     <NuxtWelcome />
   </div>
 </template>
@@ -8,7 +9,7 @@
 import "@/composables/openai" 
 const { $chat } = useNuxtApp()
 
-onMounted(async()=>{
+const chat = async()=>{
   await $chat()
-})
+}
 </script>
