@@ -4,7 +4,7 @@ import { env } from "@/composables/openai"
 export default defineNuxtPlugin(nuxtApp => {
 
   const openai = new OpenAI({
-    apiKey: "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",
+    apiKey: env().OPENAI_API_KEY,
     dangerouslyAllowBrowser: true
   })
 
