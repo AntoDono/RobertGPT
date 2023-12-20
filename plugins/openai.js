@@ -21,7 +21,11 @@ export default defineNuxtPlugin(nuxtApp => {
       model: "gpt-3.5-turbo",
     });
 
-    return completion.choices[0]
+    let response = completion.choices[0].message.content
+
+    history.push({ role: "assistant", content: response })
+
+    return response
   }
 
   nuxtApp.provide('chat', chat)

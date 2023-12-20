@@ -94,14 +94,32 @@
 </style>
 
 <script setup>
+import "@/composables/openai" 
+const { $chat } = useNuxtApp()
 const avatarUrl = "/avatar.jpg";
 const messageContent = ref();
+const awaitingResponse = ref(false)
+
+onMounted(()=>{
+   document.addEventListener('keypress',(e)=>{
+      if(e.key === 'Enter'){
+         sendMessage();
+      }
+   })
+})
 
 async function sendMessage() {
+
+   if (awaitingResponse.value){
+      return
+   }
+
    if(!messageContent) {
       alert("You can't send an empty text!")
       return
    }
+
+   awaitingResponse.value = true
    // inserting the user's message
    document.querySelector('#messages').insertAdjacentHTML('beforeend', `
       <div class="chat-message">
@@ -112,18 +130,23 @@ async function sendMessage() {
             <img src="${avatarUrl}" alt="My profile" class="w-6 h-6 rounded-full order-2">
          </div>
       </div>
-   `)
+      `)
+
+   let userMessage = messageContent.value
+   messageContent.value = "";
    // inserting GPT's response
    document.querySelector('#messages').insertAdjacentHTML('beforeend', `
       <div class="chat-message">
          <div class="flex items-end">
             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-               <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">Word</span></div>
+               <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">${await $chat(userMessage)}</span></div>
             </div>
             <img src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144" alt="My profile" class="w-6 h-6 rounded-full order-1">
          </div>
       </div>
    `)
+
+   awaitingResponse.value = false
 }
 
 onMounted(() => {
