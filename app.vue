@@ -1,11 +1,13 @@
 <template>
   <div>
-    <button @click="chat">OPENAI</button>
-    <NuxtWelcome />
+    <!-- <button @click="chat">OPENAI</button> -->
+    <!-- <NuxtWelcome /> -->
+    <NuxtPage />
   </div>
 </template>
 
 <script setup>
+// import type { NuxtPage } from "#build/components";
 import "@/composables/openai" 
 const { $chat } = useNuxtApp()
 
