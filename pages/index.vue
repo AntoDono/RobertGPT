@@ -99,6 +99,7 @@ const { $chat } = useNuxtApp()
 const avatarUrl = "/avatar.jpg";
 const messageContent = ref();
 const awaitingResponse = ref(false)
+var resCnt = 1
 
 onMounted(()=>{
    document.addEventListener('keypress',(e)=>{
@@ -118,6 +119,9 @@ async function sendMessage() {
       alert("You can't send an empty text!")
       return
    }
+
+   var messageDiv = document.querySelector('#messages')
+   messageDiv.scrollTop = messageDiv.scrollHeight
 
    awaitingResponse.value = true
    // inserting the user's message
@@ -139,12 +143,16 @@ async function sendMessage() {
       <div class="chat-message">
          <div class="flex items-end">
             <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-               <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">${await $chat(userMessage)}</span></div>
+               <div><span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600" id="res-${resCnt}"></span></div>
             </div>
             <img src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144" alt="My profile" class="w-6 h-6 rounded-full order-1">
          </div>
       </div>
    `)
+
+   await $chat(userMessage, `res-${resCnt}`)
+
+   resCnt++
 
    awaitingResponse.value = false
 }
