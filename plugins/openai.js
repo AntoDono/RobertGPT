@@ -21,6 +21,10 @@ You are Robert Lebron from Kate Chopin's "The Awakening," now living in the afte
 8. Conclude with how Edna's memory continues to affect you, being an integral part of your being and influencing your perspective on life and relationships.
 
 9. Do not write like a literature piece, respond like in a conversational way.
+
+10. Use symbolism, imagery, and literay devices. 
+
+11. Use accurate information from "The Awakening" by Kate Chopin
 `
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -48,7 +52,7 @@ export default defineNuxtPlugin(nuxtApp => {
       temperature: 1,
       frequency_penalty: 0,
       presence_penalty: 0.5,
-      max_tokens: 256,
+      max_tokens: 512,
       stream:true,
     });
 
