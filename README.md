@@ -1,4 +1,16 @@
-# Nuxt 3 Minimal Starter
+# RobertGPT
+**"The Awakening" project by Youwei Zhen & Henry Zheng**
+
+## Environment
+
+Create a .env file and input your OpenAI API Key.
+
+Example:
+```
+OPENAI_API_KEY=yourkeyhere
+```
+
+## Start Frontend
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
